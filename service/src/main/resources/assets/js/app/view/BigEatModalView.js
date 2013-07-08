@@ -19,6 +19,15 @@ function (template, ImageType) {
 
     render: function (bigEat) {
 
+      this.$el.empty();
+      var content = this._template();
+      this.$el.html(content);
+
+      return this;
+    },
+
+    _template:function(bigEat){
+
       var venue = bigEat.getVenue();
 
       var hasPhoneNumber = venue.getPhoneNumber() ? true : false;
@@ -26,8 +35,7 @@ function (template, ImageType) {
 
       var showDot = hasWebsite && hasPhoneNumber;
 
-      this.$el.empty();
-      var content = Handlebars.compile(template)({
+      return Handlebars.compile(template)({
 
         // item
         itemName: bigEat.getItemName(),
@@ -48,9 +56,6 @@ function (template, ImageType) {
         imageUrl: this._imageUrl(bigEat)
 
       });
-      this.$el.html(content);
-
-      return this;
     },
 
     events: {

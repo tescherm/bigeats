@@ -15,7 +15,7 @@ subprojects {
         srcDir 'src/main/java'
       }
     }
-	}
+  }
 
   test {
     testLogging.showStandardStreams = true

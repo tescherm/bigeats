@@ -21,10 +21,23 @@ function (template, Event, ImageType) {
 
     render: function () {
 
-      var venue = this.model.getVenue();
-
       this.$el.empty();
-      var content = Handlebars.compile(template)({
+      var content = this._template();
+      this.$el.html(content);
+
+      this.$el.attr('data-id', this.model.getId());
+      this.$el.attr('data-name', this.model.getItemName());
+      this.$el.attr('data-number', this.model.getItemNum());
+
+      this.$el.find('img').on('load', this._onImageLoaded);
+
+      return this;
+    },
+
+    _template:function(){
+
+      var venue = this.model.getVenue();
+      return Handlebars.compile(template)({
 
         // item
         itemName: this.model.getItemName(),
@@ -37,15 +50,6 @@ function (template, Event, ImageType) {
         // image
         imageUrl: this._imageUrl()
       });
-      this.$el.html(content);
-
-      this.$el.attr('data-id', this.model.getId());
-      this.$el.attr('data-name', this.model.getItemName());
-      this.$el.attr('data-number', this.model.getItemNum());
-
-      this.$el.find('img').on('load', this._onImageLoaded);
-
-      return this;
     },
 
     events: {
