@@ -194,12 +194,12 @@ public final class BigEatService {
 
   }
 
-  public BigEatImage getBigEatImage(final String bigEatId) throws BigEatImageNotFoundException,
+  public BigEatImage getBigEatImage(final String imageId) throws BigEatImageNotFoundException,
       BigEatServiceException {
-    checkNotNull(bigEatId);
+    checkNotNull(imageId);
 
     try {
-      return imageRepository.getImage(bigEatId);
+      return imageRepository.getImage(imageId);
     } catch (final BigEatRepositoryException e) {
       throw new BigEatServiceException("could not obtain big eat image", e);
     }
