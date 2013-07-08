@@ -1,0 +1,177 @@
+body {
+  background-color: #F8F8F8;
+}
+
+.modal-backdrop {
+  background-color: rgba(227, 224, 226, 0.95)
+}
+
+.big-eat-modal {
+  width: auto;
+  max-width: 560px;
+}
+
+.big-eat-modal .image {
+  border-radius: 4px 4px 0 0;
+  max-height: 500px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  text-align: center;
+}
+
+.image-banner {
+
+  background: none repeat scroll 0 0 rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  position: absolute;
+  width: 100%;
+
+}
+
+.image-banner .item-num {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 17px;
+  height: 20px;
+  padding: 4px 7px;
+  text-align: center;
+  width: 20px;
+  text-shadow: 0 1px rgb(255, 255, 255);
+  color: rgb(137, 0, 26);
+  font-weight: 500;
+}
+
+.big-eat-modal .summary {
+
+  padding: 5px 7px;
+  background: none repeat scroll 0 0 #FFFFFF;
+  border-radius: 0 0 4px 4px;
+
+  font-size: 13px;
+  line-height: 15px;
+}
+
+.big-eat-modal .summary .title {
+  font-size: 13px;
+  margin: 0;
+  line-height: 15px;
+}
+
+.big-eat-modal .summary .location {
+
+  margin-bottom: 10px;
+  margin-top: 10px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 99%;
+}
+
+.big-eat-modal .summary .contact-info {
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 99%;
+}
+
+.big-eat-modal .summary .title .item {
+  display: block;
+  font-size: 28px;
+  font-weight: 200;
+  line-height: 35px !important;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 99%;
+}
+
+.big-eat-modal .summary .title .venue {
+
+}
+
+.big-eat-controls {
+  background: none repeat scroll 0 0 #F1F2F2;
+  border: 1px solid #DFDFDF;
+  border-radius: 3px 3px 3px 3px;
+  box-shadow: none;
+  padding: 5px;
+}
+
+.big-eat-controls label {
+  display: inline-block;
+  font-weight: bold;
+  margin: 0 5px;
+  position: relative;
+  top: 5px;
+  vertical-align: top;
+}
+
+.big-eats {
+}
+
+.big-eats .big-eat {
+  float: left;
+  overflow: hidden;
+
+  margin: 8px;
+  padding: 0;
+}
+
+.hover-mask {
+  bottom: 0;
+  box-shadow: none;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.hover-mask:hover {
+  background: none repeat scroll 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.big-eats .big-eat .summary {
+  padding: 10px 7px;
+  background: none repeat scroll 0 0 #FFFFFF;
+  border-radius: 0 0 4px 4px;
+}
+
+.big-eats .big-eat .summary .title {
+  font-size: 13px;
+  margin: 0;
+  line-height: 15px;
+}
+
+.big-eats .big-eat .summary .title .item {
+  font-size: 15px;
+  font-weight: 500;
+
+  width: 99%;
+  display: block;
+  cursor: pointer;
+
+  line-height: 20px !important;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.big-eats .big-eat .summary .title .venue {
+
+}
+
+.big-eats .big-eat .image {
+  cursor: -webkit-zoom-in;
+  cursor: -moz-zoom-in;
+
+  position: relative;
+}
+
+.big-eats .big-eat .image img {
+  border-radius: 2px 2px 2px 2px;
+}

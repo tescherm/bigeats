@@ -1,0 +1,69 @@
+import static java.util.jar.Attributes.Name.MAIN_CLASS
+
+def dist_dir = 'dist'
+def conf_dir = 'conf'
+def dist_conf_dir = dist_dir + '/' + conf_dir
+def main_class = 'com.bigeat.service.ServiceBootstrap'
+
+dependencies {
+    compile group: 'com.yammer.dropwizard', name: 'dropwizard-core', version: dropwizard_version
+    
+    compile project(':api')
+    
+    testCompile group: 'org.testng', name: 'testng', version: testng_version
+    testCompile group: 'com.yammer.dropwizard', name: 'dropwizard-testing', version: dropwizard_version
+    testCompile group: 'com.yammer.dropwizard', name: 'dropwizard-client', version: dropwizard_version
+}
+
+jar {
+
+    // build as a fat jar
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    exclude('META-INF/*.RSA')
+    exclude('META-INF/*.DSA')
+    exclude('META-INF/*.SF')
+
+     manifest {
+        attributes((MAIN_CLASS.toString()): main_class)
+    }
+}
+
+task copyJar(dependsOn: configurations.default.getAllArtifacts().getFiles(), type: Copy) {
+    into dist_dir
+    from configurations.default.getAllArtifacts().getFiles()
+}
+
+task copyConfiguration(type: Copy) {
+    from 'conf'
+    into dist_conf_dir;
+}
+
+task copyScripts(type: Copy) {
+    from 'src/main/bash/'
+    into dist_dir;
+}
+
+task cleanDist(type: Delete) {
+   delete dist_dir
+}
+
+clean.dependsOn cleanDist
+
+task dist(dependsOn: [copyJar, copyScripts, copyConfiguration]) {
+
+}
+
+task debug(type:JavaExec, dependsOn: [classes], description: 'Run the service in debug mode') {
+   debug = true
+   
+   args('server')
+   args('conf/service.yaml')
+   
+   main = main_class
+   classpath = sourceSets.main.runtimeClasspath + configurations.runtime
+}
+
+task run(type:Exec, dependsOn: [dist], description: 'Run the service locally') {
+   workingDir 'dist'
+   executable './startservice.sh'
+}

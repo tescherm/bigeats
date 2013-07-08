@@ -1,0 +1,46 @@
+
+subprojects {
+
+	apply plugin: "java"
+        apply plugin: "eclipse"
+	
+	sourceCompatibility = 1.6
+	
+	repositories {
+	    mavenCentral()
+	}
+	
+	sourceSets {
+	    main {
+	        resources {
+	            srcDir 'src/main/resources'
+	            srcDir 'src/main/java'
+	        }
+	    }
+	}
+
+	test {
+          testLogging.showStandardStreams = true
+          useTestNG() {
+          }
+
+          beforeTest { descriptor ->
+            logger.lifecycle("Running test: " + descriptor)
+          }
+        }
+	
+	tasks.withType(Compile) {
+	    options.compilerArgs << "-Xlint" << "-Werror"
+            options.encoding = 'UTF-8'
+	}
+
+        ext {
+          dropwizard_version = '0.6.2'
+          httpcomponents_version = '4.2.5'
+          mockito_version = '1.9.5'
+          testng_version = '6.8'
+	  hamcrest_version = '1.3'
+	}
+
+}
+

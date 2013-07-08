@@ -1,0 +1,31 @@
+<div class="image">
+    <div class="image-banner">
+        <div class=item-num>
+            {{itemNum}}
+        </div>
+    </div>
+    <img src="{{imageUrl}}"/>
+</div>
+<div class="summary">
+    <h3 class="title">
+        <span title="{{itemName}}" class="item">{{itemName}}</span>
+        <em class="muted">at</em>
+        {{#if hasWebsite}}
+        <a title="{{venueName}}" href="{{website}}" target="_blank" class="venue">{{venueName}}</a>
+        {{else}}
+        <span title="{{venueName}}" class="venue">{{venueName}}</span>
+        {{/if}}
+        <em class="muted">in</em>
+        <span>San Francisco, CA</span>
+    </h3>
+    <p class="location">
+        <i class="icon-home"></i> {{address}} San Francisco, CA, United States
+    </p>
+    <p class="contact-info">
+        <span>{{phoneNumber}}</span>
+        {{#showDot}}
+        <span class="muted">•</span>
+        {{/showDot}}
+        <a href="{{website}}" target="_blank">{{website}}</a>
+    </p>
+</div>

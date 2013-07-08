@@ -1,6 +1,21 @@
-*.class
+# Ignore Eclipse project files/dirs
+.project
+.classpath
+.settings/
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# Ignore all IntelliJ project files/dirs
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Ignore TestNG test output
+test-output/
+
+# Ignore build dirs
+bin/
+build/
+dist/
+
+# Ignore gradle dir
+.gradle

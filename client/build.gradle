@@ -1,0 +1,11 @@
+
+dependencies {
+    
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: httpcomponents_version
+	compile group: 'org.apache.httpcomponents', name: 'httpmime', version: httpcomponents_version
+	
+	compile project(':api')
+	
+	 testCompile group: 'org.testng', name: 'testng', version: testng_version
+}
+

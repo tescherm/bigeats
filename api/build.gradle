@@ -1,0 +1,8 @@
+
+dependencies {
+    compile group: 'com.yammer.dropwizard', name: 'dropwizard-core', version: dropwizard_version
+    
+     testCompile group: 'org.testng', name: 'testng', version: testng_version
+     testCompile group: 'com.yammer.dropwizard', name: 'dropwizard-testing', version: dropwizard_version
+}
+
