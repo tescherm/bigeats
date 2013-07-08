@@ -23,21 +23,21 @@ public final class Venue {
 
   private final URL website;
 
-  private final String address;
-  private final String phoneNumber;
+  private final Location location;
+  private final Contact contact;
 
   @JsonCreator
   public static Venue newVenue(@JsonProperty("name") final String name,
                                @JsonProperty("website") final URL website, 
-                               @JsonProperty("address") final String address,
-                               @JsonProperty("phoneNumber") final String phoneNumber) {
+                               @JsonProperty("location") final Location location,
+                               @JsonProperty("contact") final Contact contact) {
 
     final Builder builder = new Builder();
     builder.name(name);
 
     builder.website(website);
-    builder.address(address);
-    builder.phoneNumber(phoneNumber);
+    builder.location(location);
+    builder.contact(contact);
 
     return builder.build(false);
 
@@ -46,8 +46,8 @@ public final class Venue {
   private Venue(final Builder builder) {
     this.name = builder.name;
     this.website = builder.website;
-    this.address = builder.address;
-    this.phoneNumber = builder.phoneNumber;
+    this.location = builder.location;
+    this.contact = builder.contact;
   }
 
   public String getName() {
@@ -58,17 +58,17 @@ public final class Venue {
     return website;
   }
 
-  public String getAddress() {
-    return address;
+  public Location getLocation() {
+    return location;
   }
-
-  public String getPhoneNumber() {
-    return phoneNumber;
+  
+  public Contact getContact() {
+    return contact;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(name, website, address, phoneNumber);
+    return Objects.hashCode(name, website, location, contact);
   }
 
   @Override
@@ -81,9 +81,8 @@ public final class Venue {
 
       return Objects.equal(this.name, that.name) 
           && Objects.equal(this.website, that.website)
-          && Objects.equal(this.address, that.address)
-          && Objects.equal(this.phoneNumber, that.phoneNumber);
-
+          && Objects.equal(this.location, that.location)
+          && Objects.equal(this.contact, that.contact);
     }
     return false;
   }
@@ -96,8 +95,8 @@ public final class Venue {
     stringHelper.add("name", name);
     stringHelper.add("website", website);
 
-    stringHelper.add("address", address);
-    stringHelper.add("phoneNumber", phoneNumber);
+    stringHelper.add("location", location);
+    stringHelper.add("contact", contact);
 
     return stringHelper.toString();
   }
@@ -108,9 +107,9 @@ public final class Venue {
 
     private URL website;
 
-    private String address;
-    private String phoneNumber;
-
+    private Location location;
+    private Contact contact;
+    
     public Builder name(final String name) {
       this.name = name;
       return this;
@@ -121,13 +120,13 @@ public final class Venue {
       return this;
     }
 
-    public Builder address(final String address) {
-      this.address = address;
+    public Builder location(final Location location) {
+      this.location = location;
       return this;
     }
-
-    public Builder phoneNumber(final String phoneNumber) {
-      this.phoneNumber = phoneNumber;
+    
+    public Builder contact(final Contact contact) {
+      this.contact = contact;
       return this;
     }
 

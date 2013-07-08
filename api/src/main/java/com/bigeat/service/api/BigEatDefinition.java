@@ -22,7 +22,7 @@ public final class BigEatDefinition extends BigEat {
 
   private final String id;
 
-  private final Map<ImageType, ImageDefinition> images;
+  private final Map<ImageSize, ImageDefinition> images;
 
   private BigEatDefinition(final Builder builder) {
     super(builder);
@@ -41,7 +41,7 @@ public final class BigEatDefinition extends BigEat {
                                                @JsonProperty("itemNum") final Integer itemNum, 
                                                @JsonProperty("item") final String item,
                                                @JsonProperty("venue") final Venue venue,
-                                               @JsonProperty("images") final Map<ImageType, ImageDefinition> images,
+                                               @JsonProperty("images") final Map<ImageSize, ImageDefinition> images,
                                                @JsonProperty("created") final Date created, 
                                                @JsonProperty("modified") final Date modified) {
 
@@ -68,7 +68,7 @@ public final class BigEatDefinition extends BigEat {
 
     private String id;
 
-    private Map<ImageType, ImageDefinition> images;
+    private Map<ImageSize, ImageDefinition> images;
 
     public Builder() {
 
@@ -111,7 +111,7 @@ public final class BigEatDefinition extends BigEat {
       return this;
     }
 
-    public Builder images(final Map<ImageType, ImageDefinition> images) {
+    public Builder images(final Map<ImageSize, ImageDefinition> images) {
       this.images = images;
       return this;
     }
@@ -142,7 +142,7 @@ public final class BigEatDefinition extends BigEat {
     return id;
   }
 
-  public Map<ImageType, ImageDefinition> getImages() {
+  public Map<ImageSize, ImageDefinition> getImages() {
     return images;
   }
 

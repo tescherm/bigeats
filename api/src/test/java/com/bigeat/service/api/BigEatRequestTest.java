@@ -9,11 +9,17 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
+import java.util.Map;
 
 import org.testng.annotations.Test;
 
 import com.bigeat.service.api.BigEatRequest.Builder;
+import com.google.common.collect.Maps;
 
+/**
+ * @author mattt
+ * 
+ */
 public class BigEatRequestTest {
 
   public BigEatRequestTest() {}
@@ -38,7 +44,7 @@ public class BigEatRequestTest {
     builder.item(itemName);
     builder.itemNum(99);
 
-    builder.image(image());
+    builder.images(images());
     builder.venue(venue(venueName));
 
     return builder.build();
@@ -60,14 +66,36 @@ public class BigEatRequestTest {
     assertThat(eatRequest).isEqualTo(bigEat);
   }
 
-  private Image image() throws MalformedURLException {
-    return new Image.Builder().smallUrl(new URL("http://image.small.png"))
-        .largeUrl(new URL("http://image.large.png")).build();
+  private static Map<ImageSize, ImageRequest> images() throws MalformedURLException {
+
+    final Map<ImageSize, ImageRequest> images = Maps.newTreeMap();
+
+    {
+      final UrlImageType image =
+          new UrlImageType.Builder().image(new URL("http://image.small.png")).build();
+      images.put(ImageSize.small, image);
+    }
+
+    {
+      final UrlImageType image =
+          new UrlImageType.Builder().image(new URL("http://image.large.png")).build();
+      images.put(ImageSize.large, image);
+    }
+
+    return images;
   }
 
-  private Venue venue(final String venueName) throws MalformedURLException {
-    return new Venue.Builder().name(venueName).address("560 divisadero at hayes")
-        .phoneNumber("415-864-8643").website(new URL("http://nopasf.com/")).build();
+  private static Venue venue(final String venueName) throws MalformedURLException {
+    return new Venue.Builder().name(venueName).location(location()).contact(contact())
+        .website(new URL("http://nopasf.com/")).build();
+  }
+
+  private static Contact contact() {
+    return new Contact.Builder().phoneNumber("415-864-8643").build();
+  }
+
+  private static Location location() {
+    return new Location.Builder().address("560 divisadero at hayes").build();
   }
 
 }

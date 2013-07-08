@@ -5,18 +5,22 @@
    "venue":{
       "name":"nopa",
       "website":"http://nopasf.com/",
-      "address":"560 divisadero at hayes",
-      "phoneNumber":"415-864-8643"
+      "location":{
+         "address":"560 divisadero at hayes"
+      },
+      "contact":{
+         "phoneNumber":"415-864-8643"
+      }
    },
    "images":{
-   	   "small":{
-   	    "id":"1337",
-   	   	"endpoint":"/image/1337"
-   	   },
-   	   "large":{
-   	    "id":"42",
-   	   	"endpoint":"/image/42"
-   	   }
+      "small":{
+         "id":"1337",
+         "endpoint":"/image/1337"
+      },
+      "large":{
+         "id":"42",
+         "endpoint":"/image/42"
+      }
    },
    "created":1336114800000,
    "modified":1336114800000

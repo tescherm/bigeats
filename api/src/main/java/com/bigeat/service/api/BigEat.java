@@ -17,7 +17,7 @@ public abstract class BigEat {
 
   @NotNull
   protected final Venue venue;
-
+  
   protected BigEat(final BigEatBuilder<?> builder) {
     this.item = builder.item;
     this.itemNum = builder.itemNum;
@@ -31,6 +31,8 @@ public abstract class BigEat {
 
     protected Venue venue;
 
+    protected Contact contact;
+    
     @SuppressWarnings("unchecked")
     public T itemNum(final Integer itemNum) {
       this.itemNum = itemNum;
@@ -48,7 +50,7 @@ public abstract class BigEat {
       this.venue = venue;
       return (T) this;
     }
-
+    
   }
 
   public Integer getItemNum() {
@@ -76,9 +78,9 @@ public abstract class BigEat {
     if (o instanceof BigEat) {
       final BigEat that = (BigEat) o;
 
-      return Objects.equal(this.itemNum, that.itemNum) && Objects.equal(this.item, that.item)
+      return Objects.equal(this.itemNum, that.itemNum)
+          && Objects.equal(this.item, that.item)
           && Objects.equal(this.venue, that.venue);
-
     }
     return false;
   }

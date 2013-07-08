@@ -1,9 +1,9 @@
 package com.bigeat.service.core;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
 
 import java.net.URI;
-import java.net.URL;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -20,9 +20,10 @@ import com.bigeat.service.api.BigEatDefinition;
 import com.bigeat.service.api.BigEatDefinition.Builder;
 import com.bigeat.service.api.BigEatImage;
 import com.bigeat.service.api.BigEatRequest;
-import com.bigeat.service.api.Image;
 import com.bigeat.service.api.ImageDefinition;
-import com.bigeat.service.api.ImageType;
+import com.bigeat.service.api.ImageRequest;
+import com.bigeat.service.api.ImageSize;
+import com.bigeat.service.api.UrlImageType;
 import com.bigeat.service.dal.BigEatImageRepository;
 import com.bigeat.service.dal.BigEatRepository;
 import com.bigeat.service.dal.exception.BigEatRepositoryException;
@@ -63,7 +64,7 @@ public final class BigEatService {
       throws BigEatServiceException, BigEatRequestException {
     checkNotNull(bigEatRequest);
 
-    final Map<ImageType, BigEatImage> images = buildImages(bigEatRequest);
+    final Map<ImageSize, BigEatImage> images = buildImages(bigEatRequest);
     final BigEatDefinition bigEat = bigEatFromRequest(bigEatRequest, baseUri, images);
 
     try {
@@ -87,7 +88,7 @@ public final class BigEatService {
     return bigEat;
   }
 
-  private void storeImages(final Map<ImageType, BigEatImage> images) throws BigEatServiceException {
+  private void storeImages(final Map<ImageSize, BigEatImage> images) throws BigEatServiceException {
 
     final List<BigEatImage> failedImages = Lists.newLinkedList();
     final List<BigEatImage> storedImages = Lists.newLinkedList();
@@ -126,7 +127,7 @@ public final class BigEatService {
   }
 
   private BigEatDefinition bigEatFromRequest(final BigEatRequest bigEatRequest, final URI baseUri,
-      final Map<ImageType, BigEatImage> images) {
+      final Map<ImageSize, BigEatImage> images) {
 
     final String id = "be_" + UUID.randomUUID().toString();
     final Date now = Calendar.getInstance().getTime();
@@ -147,11 +148,11 @@ public final class BigEatService {
     return builder.build();
   }
 
-  private Map<ImageType, ImageDefinition> images(final String bigEatId, final URI baseUri,
-      final Map<ImageType, BigEatImage> images) {
+  private Map<ImageSize, ImageDefinition> images(final String bigEatId, final URI baseUri,
+      final Map<ImageSize, BigEatImage> images) {
 
-    final BigEatImage smallImage = images.get(ImageType.small);
-    final BigEatImage largeImage = images.get(ImageType.large);
+    final BigEatImage smallImage = images.get(ImageSize.small);
+    final BigEatImage largeImage = images.get(ImageSize.large);
 
     final String smallId = smallImage.getId();
     final String largeId = largeImage.getId();
@@ -164,7 +165,7 @@ public final class BigEatService {
     final ImageDefinition large =
         new ImageDefinition.Builder().id(largeId).endpoint(largeUri).build();
 
-    return ImmutableMap.of(ImageType.small, small, ImageType.large, large);
+    return ImmutableMap.of(ImageSize.small, small, ImageSize.large, large);
   }
 
   private URI imageEndpoint(final URI baseUri, final String bigEatId, final String imageId) {
@@ -206,7 +207,7 @@ public final class BigEatService {
   }
 
   private void doRollbackOnCreate(final BigEatDefinition bigEat) {
-    
+
     try {
       bigEatRepository.deleteBigEat(bigEat.getId());
     } catch (final BigEatNotFoundException e) {
@@ -220,22 +221,32 @@ public final class BigEatService {
 
   }
 
-  private Map<ImageType, BigEatImage> buildImages(final BigEatRequest request)
+  private Map<ImageSize, BigEatImage> buildImages(final BigEatRequest request)
       throws BigEatServiceException, BigEatRequestException {
 
-    final Map<ImageType, BigEatImage> imageMap = Maps.newHashMap();
-
-    final Image image = request.getImage();
-
-    final URL smallUrl = image.getSmallUrl();
-    final URL largeUrl = image.getLargeUrl();
+    final Map<ImageSize, BigEatImage> imageMap = Maps.newHashMap();
 
     // TODO if doing serially is slow you could run these in separate threads
-    imageMap.put(ImageType.small, imageReader.read(smallUrl));
-    imageMap.put(ImageType.large, imageReader.read(largeUrl));
+    final Map<ImageSize, ImageRequest> images = request.getImages();
+    for (Map.Entry<ImageSize, ImageRequest> entry : images.entrySet()) {
+
+      final ImageRequest requestedImage = entry.getValue();
+      imageMap.put(entry.getKey(), buildImage(requestedImage));
+    }
 
     return imageMap;
 
+  }
+
+  private BigEatImage buildImage(final ImageRequest requestedImage) throws BigEatRequestException,
+      BigEatServiceException {
+
+    // only supported type atm
+    checkState(requestedImage instanceof UrlImageType, "unknown image request type: %s",
+        requestedImage.getClass());
+
+    final UrlImageType urlImage = (UrlImageType) requestedImage;
+    return imageReader.read(urlImage.getImage());
   }
 
   public void deleteBigEat(final String bigEatId) throws BigEatNotFoundException,
@@ -246,7 +257,7 @@ public final class BigEatService {
 
       final BigEatDefinition bigEat = bigEatRepository.getBigEat(bigEatId);
 
-      final Map<ImageType, ImageDefinition> images = bigEat.getImages();
+      final Map<ImageSize, ImageDefinition> images = bigEat.getImages();
       deleteBigEatImages(images);
 
       bigEatRepository.deleteBigEat(bigEatId);
@@ -256,8 +267,8 @@ public final class BigEatService {
     }
   }
 
-  private void deleteBigEatImages(final Map<ImageType, ImageDefinition> images) {
-    for (final Map.Entry<ImageType, ImageDefinition> entry : images.entrySet()) {
+  private void deleteBigEatImages(final Map<ImageSize, ImageDefinition> images) {
+    for (final Map.Entry<ImageSize, ImageDefinition> entry : images.entrySet()) {
 
       try {
         imageRepository.deleteImage(entry.getValue().getId());

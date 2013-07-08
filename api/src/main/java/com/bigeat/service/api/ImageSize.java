@@ -5,10 +5,11 @@ package com.bigeat.service.api;
  * @author mattt
  *
  */
-public enum ImageType {
+public enum ImageSize {
 
-  url
+  small,
 
+  large
 
   ;
 }

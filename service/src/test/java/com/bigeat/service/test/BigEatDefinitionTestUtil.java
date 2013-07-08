@@ -9,9 +9,8 @@ import java.util.Map;
 import com.bigeat.service.api.BigEatDefinition;
 import com.bigeat.service.api.BigEatDefinition.Builder;
 import com.bigeat.service.api.BigEatRequest;
-import com.bigeat.service.api.Image;
 import com.bigeat.service.api.ImageDefinition;
-import com.bigeat.service.api.ImageType;
+import com.bigeat.service.api.ImageSize;
 import com.google.common.collect.ImmutableMap;
 
 public final class BigEatDefinitionTestUtil {
@@ -30,7 +29,7 @@ public final class BigEatDefinitionTestUtil {
     builder.id("def-id");
 
     builder.item(request.getItem());
-    builder.images(images(request.getImage()));
+    builder.images(images());
     builder.itemNum(request.getItemNum());
 
     builder.venue(request.getVenue());
@@ -39,13 +38,13 @@ public final class BigEatDefinitionTestUtil {
 
   }
 
-  private static Map<ImageType, ImageDefinition> images(Image image) {
+  private static Map<ImageSize, ImageDefinition> images() {
 
     final ImageDefinition small =
         new ImageDefinition.Builder().id("small").endpoint(URI.create("small")).build();
     final ImageDefinition large =
         new ImageDefinition.Builder().id("large").endpoint(URI.create("large")).build();
 
-    return ImmutableMap.of(ImageType.small, small, ImageType.large, large);
+    return ImmutableMap.of(ImageSize.small, small, ImageSize.large, large);
   }
 }

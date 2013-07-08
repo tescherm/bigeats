@@ -22,10 +22,12 @@ import org.testng.annotations.Test;
 
 import com.bigeat.service.api.BigEatDefinition;
 import com.bigeat.service.api.BigEatRequest;
-import com.bigeat.service.api.Image;
 import com.bigeat.service.api.ImageDefinition;
-import com.bigeat.service.api.ImageType;
+import com.bigeat.service.api.ImageRequest;
+import com.bigeat.service.api.ImageSize;
+import com.bigeat.service.api.UrlImageType;
 import com.bigeat.service.exception.ErrorValue;
+import com.google.common.collect.ImmutableMap;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.ClientResponse.Status;
 import com.sun.jersey.api.client.GenericType;
@@ -72,7 +74,7 @@ public final class BigEatsResourceTest extends BaseResourceTest {
     checkDefinition(request, definition);
 
     // check images
-    final Map<ImageType, ImageDefinition> images = definition.getImages();
+    final Map<ImageSize, ImageDefinition> images = definition.getImages();
     checkImages(images);
 
   }
@@ -100,7 +102,7 @@ public final class BigEatsResourceTest extends BaseResourceTest {
 
   @Test(expectedExceptions = InvalidEntityException.class)
   public void createBigEatMissingImagesTest() {
-    final BigEatRequest missingStuff = new BigEatRequest.Builder(request).image(null).build(false);
+    final BigEatRequest missingStuff = new BigEatRequest.Builder(request).images(null).build(false);
     createBigEat(missingStuff);
   }
 
@@ -118,10 +120,14 @@ public final class BigEatsResourceTest extends BaseResourceTest {
 
     try {
 
-      final Image bogusImage =
-          new Image.Builder(request.getImage()).largeUrl(file.toURI().toURL()).build();
+      final ImageRequest bogusImage =
+          new UrlImageType.Builder().image(file.toURI().toURL()).build();
+
+      final Map<ImageSize, ImageRequest> images =
+          ImmutableMap.of(ImageSize.small, bogusImage, ImageSize.large, bogusImage);
+
       final BigEatRequest request =
-          new BigEatRequest.Builder(this.request).image(bogusImage).build(false);
+          new BigEatRequest.Builder(this.request).images(images).build(false);
 
       final ClientResponse response = createBigEat(request);
       assertEquals(response.getStatus(), Status.BAD_REQUEST.getStatusCode());
@@ -137,8 +143,8 @@ public final class BigEatsResourceTest extends BaseResourceTest {
     }
   }
 
-  private void checkImages(final Map<ImageType, ImageDefinition> images) {
-    for (final Map.Entry<ImageType, ImageDefinition> entry : images.entrySet()) {
+  private void checkImages(final Map<ImageSize, ImageDefinition> images) {
+    for (final Map.Entry<ImageSize, ImageDefinition> entry : images.entrySet()) {
 
       final URI imageUri = entry.getValue().getEndpoint();
       final ClientResponse locResponse = client().resource(imageUri).head();

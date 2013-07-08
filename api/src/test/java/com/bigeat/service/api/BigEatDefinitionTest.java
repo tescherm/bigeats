@@ -21,6 +21,10 @@ import org.testng.annotations.Test;
 import com.bigeat.service.api.BigEatDefinition.Builder;
 import com.google.common.collect.Maps;
 
+/**
+ * @author mattt
+ *
+ */
 public class BigEatDefinitionTest {
 
   private final DateFormat format;
@@ -63,21 +67,29 @@ public class BigEatDefinitionTest {
         .isEqualTo(bigEat);
   }
 
-  private Map<ImageType, ImageDefinition> images() throws URISyntaxException {
+  private Map<ImageSize, ImageDefinition> images() throws URISyntaxException {
 
-    final Map<ImageType, ImageDefinition> images = Maps.newTreeMap();
+    final Map<ImageSize, ImageDefinition> images = Maps.newTreeMap();
 
-    images.put(ImageType.small,
+    images.put(ImageSize.small,
         new ImageDefinition.Builder().id("1337").endpoint(new URI("/image/1337")).build());
-    images.put(ImageType.large,
+    images.put(ImageSize.large,
         new ImageDefinition.Builder().id("42").endpoint(new URI("/image/42")).build());
 
     return images;
   }
 
-  private Venue venue() throws MalformedURLException {
-    return new Venue.Builder().name("nopa").address("560 divisadero at hayes")
-        .phoneNumber("415-864-8643").website(new URL("http://nopasf.com/")).build();
+  private static Venue venue() throws MalformedURLException {
+
+    return new Venue.Builder().name("nopa").location(location()).contact(contact())
+        .website(new URL("http://nopasf.com/")).build();
   }
 
+  private static Contact contact() {
+    return new Contact.Builder().phoneNumber("415-864-8643").build();
+  }
+
+  private static Location location() {
+    return new Location.Builder().address("560 divisadero at hayes").build();
+  }
 }

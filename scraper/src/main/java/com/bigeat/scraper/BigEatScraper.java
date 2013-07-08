@@ -25,11 +25,16 @@ import org.slf4j.LoggerFactory;
 import com.bigeat.service.api.BigEatDefinition;
 import com.bigeat.service.api.BigEatRequest;
 import com.bigeat.service.api.BigEatRequest.Builder;
-import com.bigeat.service.api.Image;
+import com.bigeat.service.api.Contact;
+import com.bigeat.service.api.ImageRequest;
+import com.bigeat.service.api.ImageSize;
+import com.bigeat.service.api.Location;
+import com.bigeat.service.api.UrlImageType;
 import com.bigeat.service.api.Venue;
 import com.bigeat.service.client.BigEatServiceClient;
 import com.bigeat.service.client.exception.BigEatClientException;
 import com.bigeat.service.client.http.HttpBigEatServiceClient;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -172,12 +177,10 @@ public final class BigEatScraper {
     final URL largeImageUrl =
         new URL(smallHref.replace("mobile_imagegallery_main", "blog_imagegallery_main"));
 
-    final com.bigeat.service.api.Image.Builder imageBuilder = new Image.Builder();
+    final ImageRequest small = new UrlImageType.Builder().image(smallImageUrl).build();
+    final ImageRequest large = new UrlImageType.Builder().image(largeImageUrl).build();
 
-    imageBuilder.smallUrl(smallImageUrl);
-    imageBuilder.largeUrl(largeImageUrl);
-
-    builder.image(imageBuilder.build());
+    builder.images(ImmutableMap.of(ImageSize.small, small, ImageSize.large, large));
 
   }
 
@@ -227,14 +230,18 @@ public final class BigEatScraper {
 
     final String phoneNumber = matcher.group(12);
 
-    final com.bigeat.service.api.Venue.Builder venueBuilder = new Venue.Builder();
+    final Venue venue =
+        new Venue.Builder().name(venueName).website(webpage).location(location(address))
+            .contact(contact(phoneNumber)).build();
+    builder.venue(venue);
+  }
 
-    venueBuilder.name(venueName);
-    venueBuilder.website(webpage);
-    venueBuilder.address(address);
-    venueBuilder.phoneNumber(phoneNumber);
+  private Location location(final String address) {
+    return new Location.Builder().address(address).build();
+  }
 
-    builder.venue(venueBuilder.build());
+  private Contact contact(final String phoneNumber) {
+    return new Contact.Builder().phoneNumber(phoneNumber).build();
   }
 
   private Document readDocument() {

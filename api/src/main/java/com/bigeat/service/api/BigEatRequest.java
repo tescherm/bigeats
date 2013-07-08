@@ -3,14 +3,14 @@ package com.bigeat.service.api;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
+import java.util.Map;
+
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 import com.google.common.base.Objects.ToStringHelper;
-
-
 
 /**
  * @author mattt
@@ -19,38 +19,39 @@ import com.google.common.base.Objects.ToStringHelper;
 public final class BigEatRequest extends BigEat {
 
   @NotNull
-  private final Image image;
+  private final Map<ImageSize, ImageRequest> images;
 
   private BigEatRequest(final Builder builder) {
     super(builder);
 
-    this.image = builder.image;
+    this.images = builder.images;
   }
 
   @JsonCreator
   public static BigEatRequest newRequest(@JsonProperty("itemNum") final Integer itemNum,
                                          @JsonProperty("item") final String item,
-                                         @JsonProperty("image") final Image image,
-                                         @JsonProperty("venue") final Venue venue) {
+                                         @JsonProperty("images") final Map<ImageSize, ImageRequest> images,
+                                         @JsonProperty("venue") final Venue venue,
+                                         @JsonProperty("contact") final Contact contact) {
 
     final Builder builder = new BigEatRequest.Builder();
 
     builder.itemNum(itemNum);
     builder.item(item);
 
-    builder.image(image);
+    builder.images(images);
     builder.venue(venue);
 
     return builder.build(false);
   }
 
-  public Image getImage() {
-    return image;
+  public Map<ImageSize, ImageRequest> getImages() {
+    return images;
   }
 
   public static final class Builder extends BigEatBuilder<Builder> {
 
-    private Image image;
+    private Map<ImageSize, ImageRequest> images;
 
     public Builder() {
 
@@ -58,7 +59,7 @@ public final class BigEatRequest extends BigEat {
 
     public Builder(final BigEatRequest request) {
       item = request.item;
-      image = request.image;
+      images = request.images;
       itemNum = request.itemNum;
       venue = request.venue;
     }
@@ -71,8 +72,8 @@ public final class BigEatRequest extends BigEat {
       return new Builder(request);
     }
 
-    public Builder image(final Image image) {
-      this.image = image;
+    public Builder images(final Map<ImageSize, ImageRequest> images) {
+      this.images = images;
       return this;
     }
 
@@ -93,7 +94,7 @@ public final class BigEatRequest extends BigEat {
 
       checkNotNull(item, "item not specified");
 
-      checkNotNull(image, "image not specified");
+      checkNotNull(images, "images not specified");
       checkNotNull(venue, "venue not specified");
 
       return new BigEatRequest(this);
@@ -105,7 +106,7 @@ public final class BigEatRequest extends BigEat {
     final int prime = 31;
     final int superResult = super.hashCode();
 
-    final int result = image == null ? 0 : image.hashCode();
+    final int result = images == null ? 0 : images.hashCode();
     return prime * superResult + result;
   }
 
@@ -121,7 +122,7 @@ public final class BigEatRequest extends BigEat {
     if (o instanceof BigEatRequest) {
       final BigEatRequest that = (BigEatRequest) o;
 
-      return Objects.equal(this.image, that.image);
+      return Objects.equal(this.images, that.images);
 
     }
     return false;
@@ -135,7 +136,7 @@ public final class BigEatRequest extends BigEat {
     stringHelper.add("itemNum", itemNum);
     stringHelper.add("item", item);
 
-    stringHelper.add("image", image);
+    stringHelper.add("images", images);
     stringHelper.add("venue", venue);
 
     return stringHelper.toString();

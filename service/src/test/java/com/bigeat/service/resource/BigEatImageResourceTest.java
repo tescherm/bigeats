@@ -19,7 +19,7 @@ import org.testng.annotations.Test;
 import com.bigeat.service.api.BigEatDefinition;
 import com.bigeat.service.api.BigEatRequest;
 import com.bigeat.service.api.ImageDefinition;
-import com.bigeat.service.api.ImageType;
+import com.bigeat.service.api.ImageSize;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.ClientResponse.Status;
 import com.sun.jersey.api.client.WebResource.Builder;
@@ -58,8 +58,8 @@ public final class BigEatImageResourceTest extends BaseResourceTest {
     final BigEatDefinition definition = response.getEntity(BigEatDefinition.class);
     assertNotNull(definition);
 
-    final Map<ImageType, ImageDefinition> images = definition.getImages();
-    for (final Map.Entry<ImageType, ImageDefinition> entry : images.entrySet()) {
+    final Map<ImageSize, ImageDefinition> images = definition.getImages();
+    for (final Map.Entry<ImageSize, ImageDefinition> entry : images.entrySet()) {
 
       final URI imageUri = entry.getValue().getEndpoint();
       final ClientResponse locResponse = client().resource(imageUri).get(ClientResponse.class);

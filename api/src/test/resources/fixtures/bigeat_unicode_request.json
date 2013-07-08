@@ -1,14 +1,24 @@
 {
    "itemNum":99,
    "item":"Pomme d’amour",
-   "image":{
-      "smallUrl":"http://image.small.png",
-      "largeUrl":"http://image.large.png"
+   "images":{
+      "small":{
+        "type":"url",
+        "image":"http://image.small.png"
+      },
+      "large":{
+        "type":"url",
+        "image":"http://image.large.png"
+      }
    },
    "venue":{
       "name":"Cassava Bakery and Café",
       "website":"http://nopasf.com/",
-      "address":"560 divisadero at hayes",
-      "phoneNumber":"415-864-8643"
+      "location":{
+         "address":"560 divisadero at hayes"
+      },
+      "contact":{
+         "phoneNumber":"415-864-8643"
+      }
    }
 }

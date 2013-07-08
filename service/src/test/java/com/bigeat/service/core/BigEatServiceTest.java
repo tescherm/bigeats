@@ -16,7 +16,7 @@ import com.bigeat.service.api.BigEatDefinition;
 import com.bigeat.service.api.BigEatImage;
 import com.bigeat.service.api.BigEatRequest;
 import com.bigeat.service.api.ImageDefinition;
-import com.bigeat.service.api.ImageType;
+import com.bigeat.service.api.ImageSize;
 import com.bigeat.service.dal.BigEatImageRepository;
 import com.bigeat.service.dal.BigEatRepository;
 import com.bigeat.service.dal.mem.InMemoryBigEatImageRepository;
@@ -63,10 +63,10 @@ public final class BigEatServiceTest {
     assertNotNull(definition.getId());
     assertNotNull(definition.getImages());
 
-    final Map<ImageType, ImageDefinition> images = definition.getImages();
+    final Map<ImageSize, ImageDefinition> images = definition.getImages();
     assertEquals(images.size(), 2);
 
-    for (Map.Entry<ImageType, ImageDefinition> entry : images.entrySet()) {
+    for (Map.Entry<ImageSize, ImageDefinition> entry : images.entrySet()) {
 
       final ImageDefinition imageDefinition = entry.getValue();
       final URI endpoint = imageDefinition.getEndpoint();
@@ -93,10 +93,10 @@ public final class BigEatServiceTest {
   @Test(dependsOnMethods = {"getBigEatTest"})
   public void getBigEatImageTest() throws BigEatImageNotFoundException, BigEatServiceException {
 
-    final Map<ImageType, ImageDefinition> images = definition.getImages();
+    final Map<ImageSize, ImageDefinition> images = definition.getImages();
     assertEquals(images.size(), 2);
 
-    for (Map.Entry<ImageType, ImageDefinition> entry : images.entrySet()) {
+    for (Map.Entry<ImageSize, ImageDefinition> entry : images.entrySet()) {
       final BigEatImage bigEatImage = service.getBigEatImage(entry.getValue().getId());
       assertNotNull(bigEatImage);
     }
