@@ -24,6 +24,10 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.ClientResponse.Status;
 import com.sun.jersey.api.client.WebResource.Builder;
 
+/**
+ * @author mattt
+ * 
+ */
 public final class BigEatImageResourceTest extends BaseResourceTest {
 
   private BigEatRequest request;

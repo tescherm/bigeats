@@ -1,16 +1,15 @@
 
 dependencies {
-
-    compile group: 'com.google.guava', name: 'guava', version: '14.0.1'
-    compile group: 'org.jsoup', name: 'jsoup', version: '1.7.2'
-
-    compile project(':client')
-    
-    testCompile group: 'org.testng', name: 'testng', version: testng_version
+  
+  compile group: 'com.google.guava', name: 'guava', version: '14.0.1'
+  compile group: 'org.jsoup', name: 'jsoup', version: '1.7.2'
+  
+  compile project(':client')
+  
+  testCompile group: 'org.testng', name: 'testng', version: testng_version
 }
 
 task run(type:JavaExec, dependsOn: [classes], description: 'Run the scraper') {
-   
-   main = 'com.bigeat.scraper.Driver'
-   classpath = sourceSets.main.runtimeClasspath + configurations.runtime
+  main = 'com.bigeat.scraper.Driver'
+  classpath = sourceSets.main.runtimeClasspath + configurations.runtime
 }
