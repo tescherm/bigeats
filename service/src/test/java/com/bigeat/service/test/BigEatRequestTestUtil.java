@@ -5,12 +5,12 @@ import java.net.URL;
 
 import com.bigeat.service.api.BigEatRequest;
 import com.bigeat.service.api.BigEatRequest.Builder;
-import com.bigeat.service.api.Contact;
-import com.bigeat.service.api.ImageRequest;
-import com.bigeat.service.api.ImageSize;
-import com.bigeat.service.api.Location;
-import com.bigeat.service.api.UrlImageType;
-import com.bigeat.service.api.Venue;
+import com.bigeat.service.api.image.ImageRequest;
+import com.bigeat.service.api.image.ImageSize;
+import com.bigeat.service.api.image.UrlImageType;
+import com.bigeat.service.api.venue.Contact;
+import com.bigeat.service.api.venue.Location;
+import com.bigeat.service.api.venue.Venue;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Resources;
 

@@ -14,6 +14,12 @@ import java.util.Map;
 import org.testng.annotations.Test;
 
 import com.bigeat.service.api.BigEatRequest.Builder;
+import com.bigeat.service.api.image.ImageRequest;
+import com.bigeat.service.api.image.ImageSize;
+import com.bigeat.service.api.image.UrlImageType;
+import com.bigeat.service.api.venue.Contact;
+import com.bigeat.service.api.venue.Location;
+import com.bigeat.service.api.venue.Venue;
 import com.google.common.collect.Maps;
 
 /**

@@ -19,6 +19,11 @@ import java.util.Map;
 import org.testng.annotations.Test;
 
 import com.bigeat.service.api.BigEatDefinition.Builder;
+import com.bigeat.service.api.image.ImageDefinition;
+import com.bigeat.service.api.image.ImageSize;
+import com.bigeat.service.api.venue.Contact;
+import com.bigeat.service.api.venue.Location;
+import com.bigeat.service.api.venue.Venue;
 import com.google.common.collect.Maps;
 
 /**

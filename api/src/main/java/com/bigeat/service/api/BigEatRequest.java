@@ -7,6 +7,10 @@ import java.util.Map;
 
 import javax.validation.constraints.NotNull;
 
+import com.bigeat.service.api.image.ImageRequest;
+import com.bigeat.service.api.image.ImageSize;
+import com.bigeat.service.api.venue.Contact;
+import com.bigeat.service.api.venue.Venue;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;

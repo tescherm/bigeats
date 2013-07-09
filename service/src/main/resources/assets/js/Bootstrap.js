@@ -4,9 +4,16 @@ requirejs.config({
     app: '../app'
   },
   shim: {
-    'isotope': ['jquery'],
-    'backbone': ['jquery', 'underscore'],
-    'bootstrap': ['jquery']
+    'isotope': {
+      deps: ['jquery']
+    },
+    'backbone':{
+      deps: ['jquery', 'underscore'],
+      exports: 'Backbone'
+    },
+    'bootstrap': {
+      deps: ['jquery']
+    }
   }
 });
 

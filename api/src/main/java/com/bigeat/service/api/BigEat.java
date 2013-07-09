@@ -2,6 +2,8 @@ package com.bigeat.service.api;
 
 import javax.validation.constraints.NotNull;
 
+import com.bigeat.service.api.venue.Contact;
+import com.bigeat.service.api.venue.Venue;
 import com.google.common.base.Objects;
 
 /**

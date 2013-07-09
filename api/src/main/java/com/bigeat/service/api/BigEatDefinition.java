@@ -6,6 +6,9 @@ import static com.google.common.base.Preconditions.checkState;
 import java.util.Date;
 import java.util.Map;
 
+import com.bigeat.service.api.image.ImageDefinition;
+import com.bigeat.service.api.image.ImageSize;
+import com.bigeat.service.api.venue.Venue;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;

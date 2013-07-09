@@ -18,8 +18,8 @@ import org.testng.annotations.Test;
 
 import com.bigeat.service.api.BigEatDefinition;
 import com.bigeat.service.api.BigEatRequest;
-import com.bigeat.service.api.ImageDefinition;
-import com.bigeat.service.api.ImageSize;
+import com.bigeat.service.api.image.ImageDefinition;
+import com.bigeat.service.api.image.ImageSize;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.ClientResponse.Status;
 import com.sun.jersey.api.client.WebResource.Builder;

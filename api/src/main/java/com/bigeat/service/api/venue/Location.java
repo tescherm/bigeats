@@ -1,4 +1,4 @@
-package com.bigeat.service.api;
+package com.bigeat.service.api.venue;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

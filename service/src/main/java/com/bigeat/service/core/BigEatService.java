@@ -18,12 +18,12 @@ import org.slf4j.LoggerFactory;
 
 import com.bigeat.service.api.BigEatDefinition;
 import com.bigeat.service.api.BigEatDefinition.Builder;
+import com.bigeat.service.api.image.ImageDefinition;
+import com.bigeat.service.api.image.ImageRequest;
+import com.bigeat.service.api.image.ImageSize;
+import com.bigeat.service.api.image.UrlImageType;
 import com.bigeat.service.api.BigEatImage;
 import com.bigeat.service.api.BigEatRequest;
-import com.bigeat.service.api.ImageDefinition;
-import com.bigeat.service.api.ImageRequest;
-import com.bigeat.service.api.ImageSize;
-import com.bigeat.service.api.UrlImageType;
 import com.bigeat.service.dal.BigEatImageRepository;
 import com.bigeat.service.dal.BigEatRepository;
 import com.bigeat.service.dal.exception.BigEatRepositoryException;

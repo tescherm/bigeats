@@ -8,9 +8,9 @@ import java.util.Map;
 
 import com.bigeat.service.api.BigEatDefinition;
 import com.bigeat.service.api.BigEatDefinition.Builder;
+import com.bigeat.service.api.image.ImageDefinition;
+import com.bigeat.service.api.image.ImageSize;
 import com.bigeat.service.api.BigEatRequest;
-import com.bigeat.service.api.ImageDefinition;
-import com.bigeat.service.api.ImageSize;
 import com.google.common.collect.ImmutableMap;
 
 public final class BigEatDefinitionTestUtil {

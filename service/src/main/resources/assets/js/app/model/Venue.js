@@ -1,13 +1,17 @@
-define(function () {
+define([
+  'app/model/Location',
+  'app/model/Contact'
+  ], function (Location, Contact) {
   'use strict';
   return Backbone.Model.extend({
 
     defaults: {
 
       name: null,
-      address: null,
       website: null,
-      phoneNumber: null
+
+      location:{},
+      contact:{}
 
     },
 
@@ -19,16 +23,17 @@ define(function () {
       return this.get('name');
     },
 
-    getAddress: function () {
-      return this.get('address');
-    },
 
     getWebsite: function () {
       return this.get('website');
     },
 
-    getPhoneNumber: function () {
-      return this.get('phoneNumber');
+    getLocation:function (){
+      return new Location(this.get('location'));
+    },
+
+    getContact:function (){
+      return new Contact(this.get('contact'));
     }
 
   });

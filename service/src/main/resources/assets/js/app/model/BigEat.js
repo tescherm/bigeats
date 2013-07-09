@@ -18,9 +18,10 @@ define([
       },
       venue: {
         name: null,
-        address: null,
         website: null,
-        phoneNumber: null
+
+        location:{},
+        contact:{}
       }
 
     },

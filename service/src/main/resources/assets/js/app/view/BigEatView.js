@@ -2,9 +2,9 @@ define([
   'text!../template/big_eat.html',
 
   'app/event/Event',
-  'app/model/ImageType'
+  'app/model/ImageSize'
 ],
-function (template, Event, ImageType) {
+function (template, Event, ImageSize) {
   'use strict';
   return Backbone.View.extend({
 
@@ -36,20 +36,40 @@ function (template, Event, ImageType) {
 
     _template:function(){
 
-      var venue = this.model.getVenue();
-      return Handlebars.compile(template)({
+      var context = {};
 
-        // item
+      // item
+      _.extend(context, this._itemInfo());
+
+      // venue
+      _.extend(context, this._venueInfo());
+
+      // image
+      _.extend(context, this._imageInfo());
+
+      return Handlebars.compile(template)(context);
+    },
+
+    _itemInfo:function(){
+      return {
         itemName: this.model.getItemName(),
-        itemNum: this.model.getItemNum(),
+        itemNum: this.model.getItemNum()
+      };
+    },
 
-        // venue
+    _venueInfo:function(){
+      var venue = this.model.getVenue();
+
+      return {
         venueName: venue.getName(),
-        website: venue.getWebsite(),
+        website: venue.getWebsite()
+      };
+    },
 
-        // image
+    _imageInfo:function(){
+      return {
         imageUrl: this._imageUrl()
-      });
+      };
     },
 
     events: {
@@ -70,7 +90,7 @@ function (template, Event, ImageType) {
     },
 
     _imageUrl:function(){
-      var small = this.model.getImage(ImageType.small);
+      var small = this.model.getImage(ImageSize.small);
       return document.location.origin + small.getEndpoint();
     }
   });

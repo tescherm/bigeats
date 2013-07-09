@@ -1,4 +1,4 @@
-package com.bigeat.service.api;
+package com.bigeat.service.api.venue;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

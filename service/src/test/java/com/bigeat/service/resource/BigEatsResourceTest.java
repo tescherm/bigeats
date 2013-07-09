@@ -22,10 +22,10 @@ import org.testng.annotations.Test;
 
 import com.bigeat.service.api.BigEatDefinition;
 import com.bigeat.service.api.BigEatRequest;
-import com.bigeat.service.api.ImageDefinition;
-import com.bigeat.service.api.ImageRequest;
-import com.bigeat.service.api.ImageSize;
-import com.bigeat.service.api.UrlImageType;
+import com.bigeat.service.api.image.ImageDefinition;
+import com.bigeat.service.api.image.ImageRequest;
+import com.bigeat.service.api.image.ImageSize;
+import com.bigeat.service.api.image.UrlImageType;
 import com.bigeat.service.exception.ErrorValue;
 import com.google.common.collect.ImmutableMap;
 import com.sun.jersey.api.client.ClientResponse;
