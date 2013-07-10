@@ -1,4 +1,4 @@
-Big Eats 
+2013 7x7 Big Eat SF - A Better Visualization 
 ================
 
 Overview
@@ -53,7 +53,7 @@ To create a big eat, POST a json request similar to the following to service/v1/
 
 The response for the request above will look like:
 
-```
+```json
 {
   "id":"be_6631c3ebf1b0",
   "itemNum":36,
@@ -85,10 +85,10 @@ The response for the request above will look like:
 
 Big eats can be listed by performing a GET on the service/v1/bigeats endpoint
 
-UI
+Big Eats UI
 -----------
 
-The UI uses [isotope](http://isotope.metafizzy.co/) to present a grid layout of each big eat, and gains inspiration from [Pinterest](http://pinterest.com) and [Foodspotting](http://www.foodspotting.com). Some screenshots:
+The Big Eats UI uses [isotope](http://isotope.metafizzy.co/) to present a grid layout of each big eat, and gains inspiration from [Pinterest](http://pinterest.com) and [Foodspotting](http://www.foodspotting.com). Some screenshots:
 
 Grid View:
 
@@ -129,6 +129,6 @@ gradle clean run
 
 You should be able to hit [http://localhost:8080/service/v1/bigeats](http://localhost:8080/service/v1/bigeats) in your browser to view the big eats that were created.
 
-#####UI
+#####Big Eats UI
 
-The web UI runs at http://localhost:8080
+The web UI runs at [http://localhost:8080](http://localhost:8080)
