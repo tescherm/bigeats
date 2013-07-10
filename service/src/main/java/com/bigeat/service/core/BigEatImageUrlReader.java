@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Calendar;
@@ -26,7 +27,7 @@ import com.google.common.io.ByteStreams;
  */
 public final class BigEatImageUrlReader {
 
-  private static final Set<String> ALLOWED_IMAGE_TYPES = ImmutableSet.of("image/jpeg");
+  private static final Set<String> ALLOWED_IMAGE_TYPES = ImmutableSet.of("image/jpeg", "image/png");
 
   public BigEatImageUrlReader() {}
 
@@ -34,6 +35,7 @@ public final class BigEatImageUrlReader {
     checkNotNull(imageUrl);
 
     final URLConnection connection = doObtainConnection(imageUrl);
+    checkResponseCode(connection);
 
     final String type = connection.getHeaderField(HttpHeaders.CONTENT_TYPE);
     if (type == null) {
@@ -56,9 +58,33 @@ public final class BigEatImageUrlReader {
 
   }
 
+  private void checkResponseCode(URLConnection connection) throws BigEatRequestException {
+
+    // may not be for tests
+    if (connection instanceof HttpURLConnection) {
+      final HttpURLConnection httpConnection = (HttpURLConnection) connection;
+      final int status = doObtainStatusCode(httpConnection);
+
+      // 4xx or 5xx
+      if (status / 100 == 4 || status / 100 == 5) {
+        throw new BigEatRequestException("unexpected status code obtained for image: "
+            + connection.getURL() + ",code=" + status);
+      }
+    }
+
+  }
+
+  private int doObtainStatusCode(final HttpURLConnection httpConnection) {
+    try {
+      return httpConnection.getResponseCode();
+    } catch (IOException e) {
+      throw new IllegalStateException("coud not obtain response code", e);
+    }
+  }
+
   private static void checkType(final String type) throws BigEatRequestException {
     if (!ALLOWED_IMAGE_TYPES.contains(type)) {
-      throw new BigEatRequestException("typ '" + type + "' is not an allowed image media type");
+      throw new BigEatRequestException("type '" + type + "' is not an allowed image media type");
     }
   }
 
