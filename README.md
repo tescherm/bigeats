@@ -1,4 +1,4 @@
-2013 7x7 Big Eat SF - A Better Visualization 
+7x7 Big Eats - A Better Visualization
 ================
 
 Overview
