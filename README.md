@@ -103,7 +103,7 @@ To Run
 
 #####Service
 
-The start the service, run the following gradle target:
+The start the service, run the following [gradle](http://www.gradle.org/) target:
 
 ```
 cd service
