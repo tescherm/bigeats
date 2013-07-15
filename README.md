@@ -4,7 +4,7 @@
 Overview
 -----------
 
-The visualization for the [2013 7x7 Big Eat - 100 Things to eat before you die list ](http://www.7x7.com/big-eat-2013#/0) leaves something to be desired. It uses a carousel widget, which works great if you have five or so entries to cycle through, however it becomes a bit unwieldy if you have more than that. There are 100 items on the list, which means that you'll be clicking on that that carousel arrow quite a few times to view every item...
+The visualization for the [2013 7x7 Big Eat - 100 Things to eat before you die list ](http://www.7x7.com/big-eat-2013#/0) leaves something to be desired. It uses a carousel widget, which works great if you have five or so entries to cycle through, however it becomes a bit unwieldy if you have more than that. There are 100 items on the list, which means that you'll be clicking on that carousel arrow quite a few times to view every item...
 
 I wrote a scraper, service, and UI that provides a better visualization of this year's list. 
 
